@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>چاپکردنی قوتابی هەڵبژێردراوان</title>
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Scheherazade', serif;
+            font-size: 12px;
+        }
+
+        /* A4 usable area */
+        .page {
+            display: grid;
+            grid-template-columns: repeat(2, 10cm);
+            grid-template-rows: repeat(4, 6.4cm);
+            justify-content: center;
+            align-content: center;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .card {
+            margin: 5px;
+            width: 10cm;
+            height: 6.4cm;
+            border: 1px solid #000;
+            padding: 6px;
+            box-sizing: border-box;
+            position: relative;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            row-gap: 4px;
+        }
+
+        .photo {
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            width: 65px;
+            height: 75px;
+            border: 2px solid #000;
+            border-radius: 6px;
+            justify-self: left;
+        }
+
+        .content {
+            position: relative;
+            height: 100%;
+        }
+
+        .badge {
+            position: absolute;
+            top: 25px;
+            right: 0;
+            width: 60px;
+            height: 20px;
+            border: 1px solid #000;
+            box-sizing: border-box;
+            font-size: 12px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffffff 50%, red 50%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px;
+        }
+
+        .badge .label {
+            z-index: 2;
+        }
+
+        .badge .level {
+            z-index: 2;
+            color: #fff;
+        }
+
+        .title {
+            text-align: center;
+            font-weight: bold;
+            margin: 18px 0 4px;
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        .lines p {
+            margin: 2px 0;
+            font-size: 14px;
+            line-height: 1.2;
+            font-weight: bold;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            font-size: 13px;
+            left: 10px;
+            font-weight: bold;
+        }
+
+        .no-print {
+            display: none;
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+
+            body {
+                visibility: hidden;
+            }
+
+            .page,
+            .page * {
+                visibility: visible;
+            }
+
+            .page {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="no-print" style="padding: 20px; text-align: center;">
+        <h2>چاپکردنی قوتابی هەڵبژێردراوان</h2>
+        <p>ژمارەی قوتابیان: {{ count($students) }}</p>
+        <button onclick="window.print()"
+            style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            چاپکردن
+        </button>
+        <button onclick="window.close()"
+            style="padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">
+            داخستن
+        </button>
+    </div>
+
+    <div class="page">
+        @foreach ($students as $student)
+            <div class="card">
+                <div class="photo"></div>
+
+                <div class="content">
+                    <div class="badge">
+                        <span class="level">L</span>
+                        <span class="label">نموذج</span>
+                    </div>
+
+                    <div class="title">
+                        هەرێمێ کوردستانا عێراقێ<br>
+                        وەزارەتا ناوخو<br>
+                        رێڤەبەریەریا هاتووچوی ئیداراسەربەخویا زاخو<br>
+                        بەشێ مولەتێن شوفیری
+                    </div>
+
+                    <div class="lines">
+                        <p>جوری: {{ $student->typecar == 0 ? 'ئوتوماتیک' : 'عادی' }}</p>
+                        <p>زنجیرە: {{ $student->id }}</p>
+                        <p>ناڤ: {{ $student->name }}</p>
+                        <p>ناڤ و نیشان: {{ $student->location }}</p>
+                        <p>رگەزنامە: {{ optional($student->nationality)->nationality ?? '-' }}</p>
+                        <p>ژمارا موبایلێ: {{ $student->mobile_number }}</p>
+                        <p>روژا دەرچوونێ: {{ $student->data_start }}</p>
+                        <p>نڤێسینگەهـ: خابور</p>
+                    </div>
+
+                    <div class="footer">
+                        واژویا ئەفسەرێ مولەتی
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+
+
+</body>
+
+</html>
