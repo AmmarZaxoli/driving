@@ -231,7 +231,7 @@
 
         .page {
             background: var(--bg);
-            height: 100vh;
+           
             min-height: 580px;
             display: flex;
             align-items: center;
@@ -685,24 +685,7 @@
             animation: fadeUp .4s .48s both;
         }
 
-        /* Success */
-        .suc-layer {
-            display: none;
-            position: absolute;
-            inset: 0;
-            z-index: 30;
-            background: var(--bgc);
-            border-radius: 22px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: background .45s;
-        }
 
-        .suc-layer.on {
-            display: flex;
-        }
 
         .s-ring {
             width: 68px;
@@ -805,20 +788,10 @@
     </style>
 
     <div class="page lm" id="pg">
-        <div class="orb o1"></div>
-        <div class="orb o2"></div>
+
 
         <div class="card" id="card">
-            <div class="suc-layer" id="sl">
-                <div class="s-ring"><svg viewBox="0 0 24 24">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg></div>
-                <div class="s-t">بەخێربێیت!</div>
-                <div class="s-s">چوونەژوورێ سەرکەفتی بو</div>
-                <div class="s-rd">
-                    <div class="s-rd-ln"></div>
-                </div>
-            </div>
+
 
             <div class="c-head">
                 <div class="head-icon" id="hi">
@@ -902,9 +875,7 @@
                         <div class="inp-w">
                             <input class="inp" wire:model="name" type="text" id="ni"
                                 placeholder="ناڤێ ئەدمینی">
-                            @error('name')
-                                <span style="color: red;">{{ $message }}</span>
-                            @enderror
+
                             <svg class="i-ico" viewBox="0 0 24 24">
                                 <circle cx="12" cy="8" r="4" />
                                 <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
@@ -934,9 +905,7 @@
                         <div class="inp-w">
                             <input class="inp" type="password" wire:model="password" id="pi"
                                 placeholder="••••••••" style="padding-left:38px;">
-                            @error('password')
-                                <span style="color: red;">{{ $message }}</span>
-                            @enderror
+
                             <svg class="i-ico" viewBox="0 0 24 24">
                                 <rect x="3" y="11" width="18" height="11" rx="2" />
                                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -947,20 +916,19 @@
                                     <circle cx="12" cy="12" r="3" />
                                 </svg>
                             </button>
-                        </div>
-                        <div class="bar-wrap">
+
+                            <div class="bar-wrap">
                             <div class="bar-fill" id="pb"></div>
                         </div>
-                        <div class="err" id="pe">
-                            <svg viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10" />
-                                <line x1="12" y1="8" x2="12" y2="12" />
-                                <line x1="12" y1="16" x2="12.01" y2="16" />
-                            </svg>
-                            پاسۆرد پێویستە تژ بکرێت
+                        
                         </div>
+
                     </div>
 
+                    
+                    @error('name')
+                        <span style="color: red;">{{ $message }}</span>
+                    @enderror
 
                     <button class="btn-s" id="sb" type="button">
                         <div class="bsp" id="bsp"></div>
@@ -1044,7 +1012,6 @@
                 bi.style.display = 'block';
                 bt.textContent = 'چوونەژوورێ';
                 sb.disabled = false;
-                sl.classList.add('on'); // نیشاندانی نامەی سەرکەوتن
             }).catch(error => {
                 // ئەگەر کێشەیەک هەبوو لە سێرڤەر یان یوزەر و پاسۆرد هەڵە بوو
                 bsp.style.display = 'none';
@@ -1054,14 +1021,7 @@
             });
         });
 
-        // Password Visibility
-        document.getElementById('eb').addEventListener('click', () => {
-            const show = pi.type === 'password';
-            pi.type = show ? 'text' : 'password';
-            document.getElementById('es').innerHTML = show ?
-                '<line x1="1" y1="1" x2="23" y2="23"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>' :
-                '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
-        });
+       
 
         // Icon Animation on click
         document.getElementById('hi').addEventListener('click', () => {
@@ -1081,10 +1041,10 @@
         }
 
         // ئەم کۆدە ڕێگری دەکات لەوەی بەکارهێنەر بتوانێت مێژووی وێبگەڕ بەکاربهێنێت بۆ گەڕانەوە
-    history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-        history.go(1);
-    };
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.go(1);
+        };
     </script>
 
 </div>
