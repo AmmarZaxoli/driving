@@ -1,5 +1,6 @@
 <div>
 
+    <head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
@@ -231,17 +232,15 @@
 
         .page {
             background: var(--bg);
-           
-            min-height: 580px;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem 1rem;
+            padding: 20px;
             font-family: 'Amiri', serif;
             direction: rtl;
             position: relative;
             overflow: hidden;
-            transition: background .45s;
         }
 
         .orb {
@@ -918,14 +917,14 @@
                             </button>
 
                             <div class="bar-wrap">
-                            <div class="bar-fill" id="pb"></div>
-                        </div>
-                        
+                                <div class="bar-fill" id="pb"></div>
+                            </div>
+
                         </div>
 
                     </div>
 
-                    
+
                     @error('name')
                         <span style="color: red;">{{ $message }}</span>
                     @enderror
@@ -1021,7 +1020,7 @@
             });
         });
 
-       
+
 
         // Icon Animation on click
         document.getElementById('hi').addEventListener('click', () => {
