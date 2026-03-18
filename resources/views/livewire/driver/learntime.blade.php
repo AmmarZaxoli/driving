@@ -20,7 +20,7 @@
                 <div class="col-2">
                     <button class="action-btn delete" wire:click="saveSelected" style="height: 43px; width: 60px;"
                         title="نەئامادە">
-                        <i class="bi bi-x-circle"></i>
+                        <i class="fas fa-user-xmark"></i>
                     </button>
                 </div>
             </div>
@@ -75,12 +75,13 @@
                             </td>
                             <!-- Actions -->
                             <td class="text-center align-middle" style="width:150px">
-                               <select class="form-control" style="width:140px" wire:model="learn.{{ $Student->id }}">
-    <option value="">— هەڵبژێرە —</option>
-    @foreach ($learnTypes as $value)
-        <option value="{{ $value->id }}">{{ $value->name }}</option>
-    @endforeach
-</select>
+                                <select class="form-control" style="width:140px"
+                                    wire:model="learn.{{ $Student->id }}">
+                                    <option value="">— هەڵبژێرە —</option>
+                                    @foreach ($learnTypes as $value)
+                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
                             </td>
                             <td class="align-middle">
                                 <button class="action-btn save" title="تومارکرن"

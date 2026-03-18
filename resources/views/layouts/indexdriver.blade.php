@@ -9,8 +9,7 @@
     {{-- <title>@yield('title', 'لوحة التحكم المتطورة')</title>  --}}
 
 
-    <!-- Bootstrap 5 RTL CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+ 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Font Awesome -->
@@ -27,8 +26,8 @@
 
 
 
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.rtl.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
-
 
     @livewireStyles
 </head>
@@ -81,7 +80,13 @@
         </nav>
         <form action="{{ route('driver.logout') }}" method="POST">
             @csrf
-            <button type="submit" class="btn-logout">دەرکەفتن (Driver)</button>
+           
+                <div class="nav-item-wrapper" style="margin-top: 6px;">
+                    <button type="submit" class="btn-logout">
+                        <i class="fas fa-right-from-bracket"></i>
+                        <span class="nav-label">دەرچون</span>
+                    </button>
+                </div>
         </form>
         <div class="sidebar-footer">
             <div class="user-card">

@@ -43,7 +43,7 @@ return new class extends Migration
             $table->boolean('dayoflearn');   
 
             $table->date('data_start');
-            $table->date('data_learn');
+            $table->date('date_learn');
             $table->time('time')->nullable();
             $table->time('time2')->nullable();
 

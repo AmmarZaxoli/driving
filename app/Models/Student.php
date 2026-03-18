@@ -22,7 +22,7 @@ class Student extends Model
         'learn',
         'status',
         'data_start',
-        'data_learn',
+        'date_learn',
         'time',
         'time2',
         'dayoflearn',
@@ -40,10 +40,15 @@ class Student extends Model
     }
 
 
-     public function todayAbsent()
+    public function todayAbsent()
     {
         return $this->hasOne(StudentInfo::class)
             ->whereDate('date_day', now())
             ->where('absent', true);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'student_id');
     }
 }

@@ -42,6 +42,7 @@ Route::middleware(['auth:admin', 'prevent-back'])->group(function () {
     Route::view('/dashboard', 'dashboard.create')->name('dashboard');
     Route::view('/learntype', 'learntype.create')->name('learntype');
     Route::view('/student', 'student.create')->name('student');
+    Route::view('/student/absent', 'student.absent')->name('studentAbsent');
     Route::view('/coach', 'coach.create')->name('coach');
     Route::view('/nationality', 'nationality.create')->name('nationality');
     Route::view('/cart', 'cart.create')->name('cart');
@@ -67,7 +68,7 @@ Route::middleware(['auth:coach', 'prevent-back'])->group(function () {
         return view('layouts.indexdriver');
     })->name('indexdriver');
 
-    Route::view('/driver', 'driver.create')->name('driverlearntime');
+    Route::view('/driver/learntime', 'driver.create')->name('driverlearntime');
 });
 
 /*

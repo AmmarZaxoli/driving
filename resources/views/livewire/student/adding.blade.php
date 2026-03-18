@@ -37,7 +37,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        autocomplete="off" autofocus id="name" wire:model.live="name"
+                                        autocomplete="off" autofocus id="name" wire:model.defer="name"
                                         placeholder="ناڤێ فـێـرخــازی">
                                     <div class="input-line"></div>
                                 </div>
@@ -57,7 +57,7 @@
                                 <div class="input-wrapper">
                                     <input type="text"
                                         class="form-control @error('mother_name') is-invalid @enderror" id="mother_name"
-                                        autocomplete="off" wire:model.live="mother_name"
+                                        autocomplete="off" wire:model.defer="mother_name"
                                         placeholder="ناڤێ دایکێ فـێـرخــازی">
                                     <div class="input-line"></div>
                                 </div>
@@ -76,7 +76,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="date" class="form-control @error('birthday') is-invalid @enderror"
-                                        id="birthday" wire:model.live="birthday">
+                                        id="birthday" wire:model.defer="birthday">
                                     <div class="input-line"></div>
                                 </div>
                                 @error('birthday')
@@ -94,7 +94,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="text" class="form-control @error('location') is-invalid @enderror"
-                                        autocomplete="off" id="location" wire:model.live="location"
+                                        autocomplete="off" id="location" wire:model.defer="location"
                                         placeholder="City, Country">
                                     <div class="input-line"></div>
                                 </div>
@@ -114,7 +114,7 @@
                                 <div class="input-wrapper">
                                     <input type="tel"
                                         class="form-control @error('mobile_number') is-invalid @enderror"
-                                        autocomplete="off" id="mobile_number" wire:model.live="mobile_number"
+                                        autocomplete="off" id="mobile_number" wire:model.defer="mobile_number"
                                         placeholder="0750 -------">
                                     <div class="input-line"></div>
                                 </div>
@@ -133,7 +133,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="date" class="form-control @error('date_join') is-invalid @enderror"
-                                        id="date_join" wire:model.live="date_join">
+                                        id="date_join" wire:model.defer="date_join">
                                     <div class="input-line"></div>
                                 </div>
                                 @error('date_join')
@@ -152,7 +152,7 @@
                                 <div class="input-wrapper">
                                     <input type="date"
                                         class="form-control @error('date_dr_number') is-invalid @enderror"
-                                        autocomplete="off" id="date_dr_number" wire:model.live="date_dr_number"
+                                        autocomplete="off" id="date_dr_number" wire:model.defer="date_dr_number"
                                         placeholder="DR-123456">
                                     <div class="input-line"></div>
                                 </div>
@@ -171,7 +171,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="text" class="form-control @error('invoice') is-invalid @enderror"
-                                        autocomplete="off" id="invoice" wire:model.live="invoice"
+                                        autocomplete="off" id="invoice" wire:model.defer="invoice"
                                         placeholder="INV-2024-001">
                                     <div class="input-line"></div>
                                 </div>
@@ -190,7 +190,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <select class="form-control @error('nationality') is-invalid @enderror"
-                                        id="nationality" wire:model.live="nationality">
+                                        id="nationality" wire:model.defer="nationality">
                                         <option value="">— اختر الجنسية —</option>
                                         @foreach ($nationalities as $value)
                                             <option value="{{ $value->id }}">
@@ -216,7 +216,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <select class="form-control @error('coach') is-invalid @enderror" id="coach"
-                                        wire:model.live="coach" dir="rtl">
+                                        wire:model.defer="coach" dir="rtl">
                                         <option value="">— هەڵبژێرە —</option>
                                         @foreach ($coachs as $coachItem)
                                             <option value="{{ $coachItem->id }}">
@@ -245,7 +245,7 @@
                                 <div class="input-wrapper">
                                     <input type="text"
                                         class="form-control @error('number_car') is-invalid @enderror"
-                                        id="number_car" autocomplete="off" wire:model.live="number_car"
+                                        id="number_car" autocomplete="off" wire:model.defer="number_car"
                                         placeholder="A-1234">
                                     <div class="input-line"></div>
                                 </div>
@@ -264,7 +264,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <select class="form-control @error('typecar') is-invalid @enderror"
-                                        id="typecar" wire:model.live="typecar">
+                                        id="typecar" wire:model.defer="typecar">
                                         <option value="">— هەڵبژێرە —</option>
                                         <option value="0">ئوتوماتیک</option>
                                         <option value="1">عادی</option>
@@ -386,7 +386,7 @@
 
                     <div class="text-start mt-3">
 
-                        <button type="submit" class="btn-primary-custom">
+                        <button type="submit" class="btn-primary-custom" wire:loading.attr="disabled">
                             <span>تۆمارکردن</span>
                             <i class="bi bi-plus-lg"></i>
                         </button>
@@ -515,7 +515,9 @@
 
 
 
-
+        <div wire:loading wire:target="submit">
+    @include('components.loading-overlay')
+</div>
 
     </div>
 

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap RTL -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css"> --}}
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <!-- Your CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.rtl.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     @livewireStyles
@@ -36,26 +37,26 @@
 
         <div class="sidebar-brand">
             <div class="brand-icon"><i class="bi bi-grid-3x3-gap-fill"></i></div>
-            <span class="brand-text">نظام الإدارة</span>
+            <span class="brand-text">پانێلا سەرەکی</span>
         </div>
 
         <nav class="sidebar-nav">
 
-            <div class="section-title">القائمة الرئيسية</div>
+            <div class="section-title">لیستا سەرەکی</div>
 
             <!-- الرئيسية -->
             <div class="nav-item-wrapper">
                 <a class="nav-btn" {{ request()->routeIs('dashboard') ? 'active' : '' }}
                     href="{{ route('dashboard') }}">
                     <i class="bi bi-house-fill nav-icon"></i>
-                    <span class="nav-label">الرئيسية</span>
+                    <span class="nav-label">سەرەکی</span>
                 </a>
             </div>
 
             <div class="nav-item-wrapper">
                 <a class="nav-btn {{ request()->routeIs('student') ? 'active' : '' }}" href="{{ route('student') }}"> <i
                         class="bi bi-person-lines-fill"></i>
-                    <span class="nav-label">student</span>
+                    <span class="nav-label">فێرخاز</span>
                 </a>
             </div>
 
@@ -65,7 +66,7 @@
                 <a class="nav-btn {{ request()->routeIs('nationality') ? 'active' : '' }}"
                     href="{{ route('nationality') }}">
                     <span class="nav-icon"><i class="bi bi-person-lines-fill"></i></span>
-                    <span class="nav-label">nationality</span>
+                    <span class="nav-label">ناسنامە</span>
                 </a>
             </div>
 
@@ -81,100 +82,42 @@
             <div class="nav-item-wrapper">
                 <button class="nav-btn" onclick="toggleSub('sub-users', this)">
                     <i class="bi bi-people-fill nav-icon"></i>
-                    <span class="nav-label">إدارة المستخدمين</span>
+                    <span class="nav-label">کارگێڕیا راهێنەران</span>
                     <i class="bi bi-chevron-down nav-arrow" id="arrow-users"></i>
                 </button>
 
-                <div class="subnav {{ request()->routeIs('coach*') ? 'open' : '' }}" id="sub-users">
+                <div class="subnav {{ request()->routeIs('coach*', 'studentwrite*', 'studentAbsent*') ? 'open' : '' }}"
+                    id="sub-users">
                     <a class="sub-btn {{ request()->routeIs('coach') ? 'active' : '' }}" href="{{ route('coach') }}">
-                        <span class="nav-label">add driver</span>
+                        <span class="nav-label">زێدە کرنا راهێنەری</span>
                     </a>
 
-                    <button class="sub-btn" onclick="setSubActive(this, 'إضافة مستخدم')">إضافة مستخدم</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'الصلاحيات')">الصلاحيات والأدوار</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'المجموعات')">المجموعات</button>
+                    <a class="sub-btn {{ request()->routeIs('studentwrite') ? 'active' : '' }}"
+                        href="{{ route('studentwrite') }}">
+                        <span class="nav-label">بەشیێ فێرکرنێ</span>
+                    </a>
+
+                    <a class="sub-btn {{ request()->routeIs('studentAbsent') ? 'active' : '' }}"
+                        href="{{ route('studentAbsent') }}">
+                        <span class="nav-label">نە ئامادە بوون</span>
+                    </a>
+
+
                 </div>
             </div>
 
-            <!-- المنتجات -->
-            <div class="nav-item-wrapper">
-                <button class="nav-btn" onclick="toggleSub('sub-products', this)">
-                    <i class="bi bi-box-seam-fill nav-icon"></i>
-                    <span class="nav-label">المنتجات</span>
-                    <i class="bi bi-chevron-down nav-arrow" id="arrow-products"></i>
-                </button>
-                <div class="subnav" id="sub-products">
-                    <button class="sub-btn" onclick="setSubActive(this, 'كل المنتجات')">كل المنتجات</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'إضافة منتج')">إضافة منتج</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'الفئات')">الفئات</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'المخزون')">المخزون</button>
-                </div>
-            </div>
 
-            <!-- الطلبات -->
-            <div class="nav-item-wrapper">
-                <button class="nav-btn" onclick="toggleSub('sub-orders', this)">
-                    <i class="bi bi-cart3 nav-icon"></i>
-                    <span class="nav-label">الطلبات</span>
-                    <i class="bi bi-chevron-down nav-arrow" id="arrow-orders"></i>
-                </button>
-                <div class="subnav" id="sub-orders">
-                    <button class="sub-btn" onclick="setSubActive(this, 'كل الطلبات')">كل الطلبات</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'الطلبات المعلقة')">الطلبات المعلقة</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'الطلبات المكتملة')">الطلبات المكتملة</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'المرتجعات')">المرتجعات</button>
-                </div>
-            </div>
-
-            <!-- التقارير -->
-            <div class="nav-item-wrapper">
-                <button class="nav-btn" onclick="toggleSub('sub-reports', this)">
-                    <i class="bi bi-bar-chart-fill nav-icon"></i>
-                    <span class="nav-label">التقارير</span>
-                    <i class="bi bi-chevron-down nav-arrow" id="arrow-reports"></i>
-                </button>
-                <div class="subnav" id="sub-reports">
-                    <button class="sub-btn" onclick="setSubActive(this, 'تقرير المبيعات')">تقرير المبيعات</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'تقرير المستخدمين')">تقرير المستخدمين</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'التقارير المالية')">التقارير المالية</button>
-                </div>
-            </div>
-
-            <div class="section-title">الإعدادات</div>
-
-            <!-- الإشعارات -->
-            <div class="nav-item-wrapper">
-                <button class="nav-btn" onclick="setActive(this, 'الإشعارات')">
-                    <i class="bi bi-bell-fill nav-icon"></i>
-                    <span class="nav-label">الإشعارات</span>
-                </button>
-            </div>
-
-            <!-- الإعدادات -->
-            <div class="nav-item-wrapper">
-                <button class="nav-btn" onclick="toggleSub('sub-settings', this)">
-                    <i class="bi bi-gear-fill nav-icon"></i>
-                    <span class="nav-label">الإعدادات</span>
-                    <i class="bi bi-chevron-down nav-arrow" id="arrow-settings"></i>
-                </button>
-                <div class="subnav" id="sub-settings">
-                    <button class="sub-btn" onclick="setSubActive(this, 'إعدادات عامة')">إعدادات عامة</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'الأمان')">الأمان والخصوصية</button>
-                    <button class="sub-btn" onclick="setSubActive(this, 'المظهر')">المظهر</button>
-                </div>
-            </div>
-
-            <!-- المساعدة -->
-            <div class="nav-item-wrapper">
-                <button class="nav-btn" onclick="setActive(this, 'المساعدة')">
-                    <i class="bi bi-question-circle-fill nav-icon"></i>
-                    <span class="nav-label">المساعدة والدعم</span>
-                </button>
-            </div>
 
             <form action="{{ route('admin.logout') }}" method="POST">
                 @csrf
-                <button type="submit">Logout (Admin)</button>
+
+
+                <div class="nav-item-wrapper" style="margin-top: 6px;">
+                    <button type="submit" class="btn-logout">
+                        <i class="fas fa-right-from-bracket"></i>
+                        <span class="nav-label">دەرچون</span>
+                    </button>
+                </div>
             </form>
 
         </nav>
@@ -183,8 +126,10 @@
             <div class="user-card">
                 <div class="user-avatar">م</div>
                 <div class="user-info">
-                    <div class="user-name">محمد العلي</div>
-                    <div class="user-role">مدير النظام</div>
+                    <div class="user-name">{{ auth()->user()->name }}</div>
+                    <div class="user-role">
+                        {{ auth()->user()->role === 'admin' ? 'مدير النظام' : auth()->user()->role }}
+                    </div>
                 </div>
             </div>
         </div>
