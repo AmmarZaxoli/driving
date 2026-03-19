@@ -81,6 +81,7 @@ class Absent extends Component
             }
         });
 
+        $this->dispatch('closeModal');
         flash()->success('هاتە ژێـــبـرن');
     }
 

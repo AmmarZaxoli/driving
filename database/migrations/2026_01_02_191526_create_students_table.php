@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('mobile_number');
 
             $table->date('date_join');
-            $table->date('date_dr_number');
+            $table->date('date_dr_number')->nullable();
 
             $table->string('invoice');
 
@@ -42,8 +42,8 @@ return new class extends Migration
             $table->boolean('status');   
             $table->boolean('dayoflearn');   
 
-            $table->date('data_start');
-            $table->date('date_learn');
+            $table->date('data_start')->nullable();
+            $table->date('date_learn')->nullable();
             $table->time('time')->nullable();
             $table->time('time2')->nullable();
 

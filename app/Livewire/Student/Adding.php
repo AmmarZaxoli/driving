@@ -124,15 +124,20 @@ class Adding extends Component
         'location' => 'required',
         'mobile_number' => 'required|min:7',
         'date_join' => 'required|date',
-        'date_dr_number' => 'required|date',
+
+     
+        'date_dr_number' => 'nullable|date',
+        'data_start'     => 'nullable|date',
+
         'invoice' => 'required',
         'nationality' => 'required|exists:nationalities,id',
         'coach' => 'required|exists:coaches,id',
         'number_car' => 'required',
         'typecar' => 'required|in:0,1',
         'learn' => 'required|in:0,1',
-        'data_start' => 'required|date',
-        'time' => 'required|date_format:H:i',
+
+        'time' => 'nullable|date_format:H:i',
+        'time2' => 'nullable|date_format:H:i',
     ];
     public function toggleForm()
     {
@@ -166,17 +171,22 @@ class Adding extends Component
                 'location' => $this->location,
                 'mobile_number' => $this->mobile_number,
                 'date_join' => $this->date_join,
-                'date_dr_number' => $this->date_dr_number,
+
+
+                'date_dr_number' => $this->date_dr_number ?: null,
+                'data_start'     => $this->data_start ?: null,
+                'date_learn'     => $this->data_start ?: null,
+
                 'invoice' => $this->invoice,
                 'nationality_id' => $this->nationality,
                 'coach_id' => $this->coach,
                 'number_car' => $this->number_car,
                 'typecar' => $this->typecar,
                 'learn' => $this->learn,
-                'data_start' => $this->data_start,
-                'date_learn' => $this->data_start,
-                'time' => $this->time,
-                'time2' => $this->time2,
+
+                'time' => $this->time ?: null,
+                'time2' => $this->time2 ?: null,
+
                 'dayoflearn' => $this->dayoflearn,
             ]);
 
@@ -190,7 +200,12 @@ class Adding extends Component
                 'location' => $this->location,
                 'mobile_number' => $this->mobile_number,
                 'date_join' => $this->date_join,
-                'date_dr_number' => $this->date_dr_number,
+
+
+                'date_dr_number' => $this->date_dr_number ?: null,
+                'data_start'     => $this->data_start ?: null,
+                'date_learn'     => $this->data_start ?: null,
+
                 'invoice' => $this->invoice,
                 'nationality_id' => $this->nationality,
                 'coach_id' => $this->coach,
@@ -198,10 +213,10 @@ class Adding extends Component
                 'typecar' => $this->typecar,
                 'learn' => $this->learn,
                 'status' => false,
-                'data_start' => $this->data_start,
-                'date_learn' => $this->data_start,
-                'time' => $this->time,
-                'time2' => $this->time2,
+
+                'time' => $this->time ?: null,
+                'time2' => $this->time2 ?: null,
+
                 'dayoflearn' => $this->dayoflearn,
             ]);
 

@@ -143,18 +143,27 @@
                         <span wire:loading.remove wire:target="deleteabsent">
                             گوهــریـن
                         </span>
-                       
+
                     </button>
 
                     <button type="button" class="btn-outline-custom" data-bs-dismiss="modal">هەلوەشاندن</button>
-<div wire:loading>
-    @include('components.loading-overlay')
-</div>
                 </div>
             </div>
         </div>
     </div>
+    <div wire:loading>
+        @include('components.loading-overlay')
+    </div>
 
 
+    <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('closeModal', () => {
+                let modalEl = document.getElementById('filterModal');
+                let modal = bootstrap.Modal.getInstance(modalEl);
+                modal.hide();
+            });
+        });
+    </script>
 
 </div>

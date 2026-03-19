@@ -115,7 +115,7 @@
                 <div class="nav-item-wrapper" style="margin-top: 6px;">
                     <button type="submit" class="btn-logout">
                         <i class="fas fa-right-from-bracket"></i>
-                        <span class="nav-label">دەرچون</span>
+                        <span class="nav-label">دەرکەڤتن</span>
                     </button>
                 </div>
             </form>

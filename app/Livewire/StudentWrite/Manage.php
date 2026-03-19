@@ -2,10 +2,13 @@
 
 namespace App\Livewire\StudentWrite;
 
+use App\Models\Attendance;
 use App\Models\Coach;
 use App\Models\Student;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class Manage extends Component
 {
@@ -13,8 +16,9 @@ class Manage extends Component
 
     public $search = '';
     public $coachs;
+    public $student_id;
     public $coach_id = null;
-
+    public $date_learn;
     public $date_from = null;
     public $date_to = null;
 
@@ -46,37 +50,78 @@ class Manage extends Component
         $this->resetPage();
     }
 
+
+    public function setAbsentId($id)
+    {
+        $this->student_id = $id;
+    }
+    public function deleteabsent()
+    {
+
+
+
+        $this->validate([
+            'date_learn' => 'required|date',
+        ]);
+
+
+
+        DB::transaction(function () {
+
+            $attendance = Attendance::findOrFail($this->student_id);
+
+            $student = Student::findOrFail($attendance->student_id);
+
+
+
+            // Delete attendance
+            $attendance->delete();
+
+            // Update student
+            if ($student) {
+                $student->increment('dayoflearn', 1, [
+                    'date_learn' => $this->date_learn,
+                ]);
+            }
+        });
+
+        $this->dispatch('closeModal');
+
+        flash()->success('هاتە ژێـــبـرن');
+    }
+
+
     public function render()
     {
-        $query = Student::query()
-            ->where('learn', 0)
-            ->where('status', 0);
+        $attendances = Attendance::with('student', 'coach')
 
-        // ✅ Live search (always active)
-        if ($this->search) {
-            $query->where(function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('mobile_number', 'like', '%' . $this->search . '%');
-            });
-        }
+            // ✅ Filter by coach (optional)
+            ->when($this->coach_id, function ($q) {
+                $q->where('coach_id', $this->coach_id);
+            })
 
-        // ✅ Live coach filter (always active if selected)
-        if ($this->coach_id) {
-            $query->where('coach_id', $this->coach_id);
-        }
+            // ✅ Date logic
+            ->when($this->date_from && $this->date_to, function ($q) {
+                // 🔹 If user selected date range → use it
+                $q->whereBetween('date_learn', [$this->date_from, $this->date_to]);
+            }, function ($q) {
+                // 🔥 DEFAULT → today
+                $q->whereDate('date_learn', Carbon::today());
+            })
 
-        // ✅ Date filter only applied when both dates selected and Filter clicked
-        if ($this->isFiltered && $this->date_from && $this->date_to) {
-            $query->whereHas('attendances', function ($q) {
-                $q->whereDate('date_learn', '>=', $this->date_from)
-                    ->whereDate('date_learn', '<=', $this->date_to);
-            });
-        }
+            // ✅ Search (name + mobile)
+            ->when($this->search, function ($q) {
+                $q->whereHas('student', function ($s) {
+                    $s->where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('mobile_number', 'like', '%' . $this->search . '%');
+                });
+            })
 
-        $students = $query->orderBy('name')->paginate(30);
+            ->latest()
+            ->paginate(30);
 
         return view('livewire.student-write.manage', [
-            'Students' => $students,
+            'attendances' => $attendances,
         ]);
     }
 }

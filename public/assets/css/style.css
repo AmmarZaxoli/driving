@@ -125,7 +125,7 @@ body {
     opacity: 0;
     width: 0;
     overflow: hidden;
-    
+
 }
 
 .sidebar-nav {
@@ -960,6 +960,7 @@ body {
     color: var(--text-sidebar);
     transition: var(--transition);
 }
+
 
 
 /* Print button for table - matches your action-btn delete style */

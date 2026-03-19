@@ -751,9 +751,7 @@
                     </label>
                     <input type="text" id="nameInput" wire:model="name" placeholder="بنووسە ناڤی بەکارهێنەر"
                         autocomplete="off" />
-                    @error('name')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
+
                 </div>
 
 
@@ -778,13 +776,12 @@
                             </svg>
                         </button>
                     </div>
-
-                    @error('password')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @error('name')
+                        <span class="error-message" style="color: red">{{ $message }}</span>
                     @enderror
                 </div>
 
-               
+
 
 
                 <div class="remember-row">
@@ -887,18 +884,18 @@
 
             });
 
-             // ڕێگری لە گەڕانەوە بۆ لاپەڕەی پێشوو دوای لۆگین یان لۆگ ئاوت
-        window.onload = function() {
-            if (window.history.replaceState) {
-                window.history.replaceState(null, null, window.location.href);
+            // ڕێگری لە گەڕانەوە بۆ لاپەڕەی پێشوو دوای لۆگین یان لۆگ ئاوت
+            window.onload = function() {
+                if (window.history.replaceState) {
+                    window.history.replaceState(null, null, window.location.href);
+                }
             }
-        }
 
-        // ئەم کۆدە ڕێگری دەکات لەوەی بەکارهێنەر بتوانێت مێژووی وێبگەڕ بەکاربهێنێت بۆ گەڕانەوە
-    history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-        history.go(1);
-    };
+            // ئەم کۆدە ڕێگری دەکات لەوەی بەکارهێنەر بتوانێت مێژووی وێبگەڕ بەکاربهێنێت بۆ گەڕانەوە
+            history.pushState(null, null, location.href);
+            window.onpopstate = function() {
+                history.go(1);
+            };
         </script>
     </body>
 
