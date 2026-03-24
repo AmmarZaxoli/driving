@@ -48,7 +48,7 @@ class Adding extends Component
     #[Session]
     public $number_car;
     #[Session]
-    public $data_start;
+    public $date_start;
     #[Session]
     public $nationalities;
     #[Session]
@@ -125,9 +125,9 @@ class Adding extends Component
         'mobile_number' => 'required|min:7',
         'date_join' => 'required|date',
 
-     
+
         'date_dr_number' => 'nullable|date',
-        'data_start'     => 'nullable|date',
+        'date_start'     => 'nullable|date',
 
         'invoice' => 'required',
         'nationality' => 'required|exists:nationalities,id',
@@ -174,8 +174,8 @@ class Adding extends Component
 
 
                 'date_dr_number' => $this->date_dr_number ?: null,
-                'data_start'     => $this->data_start ?: null,
-                'date_learn'     => $this->data_start ?: null,
+                'date_start'     => $this->date_start ?: null,
+                'date_learn'     => $this->date_start ?: null,
 
                 'invoice' => $this->invoice,
                 'nationality_id' => $this->nationality,
@@ -203,8 +203,8 @@ class Adding extends Component
 
 
                 'date_dr_number' => $this->date_dr_number ?: null,
-                'data_start'     => $this->data_start ?: null,
-                'date_learn'     => $this->data_start ?: null,
+                'date_start'     => $this->date_start ?: null,
+                'date_learn'     => $this->date_start ?: null,
 
                 'invoice' => $this->invoice,
                 'nationality_id' => $this->nationality,
@@ -248,7 +248,7 @@ class Adding extends Component
             'number_car',
             'typecar',
             'learn',
-            'data_start',
+            'date_start',
             'isEdit',
             'editId',
             'Studentadd',
@@ -284,7 +284,7 @@ class Adding extends Component
             'number_car' => $student->number_car,
             'typecar' => $student->typecar,
             'learn' => $student->learn,
-            'data_start' => $student->data_start,
+            'date_start' => $student->date_start,
 
             'time' => $student->time ? Carbon::parse($student->time)->format('H:i') : null,
             'time2' => $student->time2 ? Carbon::parse($student->time2)->format('H:i') : null,

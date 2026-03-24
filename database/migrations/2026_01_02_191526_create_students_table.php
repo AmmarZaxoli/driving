@@ -37,15 +37,17 @@ return new class extends Migration
 
             $table->string('number_car');
 
-            $table->boolean('typecar'); 
-            $table->boolean('learn');   
+            $table->integer('typecar'); 
+            $table->integer('learn');   
             $table->boolean('status');   
-            $table->boolean('dayoflearn');   
+            $table->integer('dayoflearn');   
 
-            $table->date('data_start')->nullable();
+            $table->date('date_start')->nullable();
             $table->date('date_learn')->nullable();
             $table->time('time')->nullable();
             $table->time('time2')->nullable();
+
+            $table->string('class')->nullable();
 
             $table->timestamps();
         });

@@ -105,6 +105,7 @@
             </div>
         </div>
 
+
         @if ($nationalities->hasPages())
             <div class="d-flex align-items-center justify-content-between p-3 flex-wrap gap-2"
                 style="border-top:1px solid var(--border);">

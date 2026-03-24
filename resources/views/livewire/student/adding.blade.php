@@ -37,7 +37,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        autocomplete="off" autofocus id="name" wire:model.defer="name"
+                                        autocomplete="off" autofocus id="name" wire:model.blur="name"
                                         placeholder="ناڤێ فـێـرخــازی">
                                     <div class="input-line"></div>
                                 </div>
@@ -57,7 +57,7 @@
                                 <div class="input-wrapper">
                                     <input type="text"
                                         class="form-control @error('mother_name') is-invalid @enderror" id="mother_name"
-                                        autocomplete="off" wire:model.defer="mother_name"
+                                        autocomplete="off" wire:model.blur="mother_name"
                                         placeholder="ناڤێ دایکێ فـێـرخــازی">
                                     <div class="input-line"></div>
                                 </div>
@@ -76,7 +76,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="date" class="form-control @error('birthday') is-invalid @enderror"
-                                        id="birthday" wire:model.defer="birthday">
+                                        id="birthday" wire:model.blur="birthday">
                                     <div class="input-line"></div>
                                 </div>
                                 @error('birthday')
@@ -94,7 +94,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="text" class="form-control @error('location') is-invalid @enderror"
-                                        autocomplete="off" id="location" wire:model.defer="location"
+                                        autocomplete="off" id="location" wire:model.blur="location"
                                         placeholder="City, Country">
                                     <div class="input-line"></div>
                                 </div>
@@ -114,7 +114,7 @@
                                 <div class="input-wrapper">
                                     <input type="tel"
                                         class="form-control @error('mobile_number') is-invalid @enderror"
-                                        autocomplete="off" id="mobile_number" wire:model.defer="mobile_number"
+                                        autocomplete="off" id="mobile_number" wire:model.blur="mobile_number"
                                         placeholder="0750 -------">
                                     <div class="input-line"></div>
                                 </div>
@@ -133,7 +133,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="date" class="form-control @error('date_join') is-invalid @enderror"
-                                        id="date_join" wire:model.defer="date_join">
+                                        id="date_join" wire:model.blur="date_join">
                                     <div class="input-line"></div>
                                 </div>
                                 @error('date_join')
@@ -152,7 +152,7 @@
                                 <div class="input-wrapper">
                                     <input type="date"
                                         class="form-control @error('date_dr_number') is-invalid @enderror"
-                                        autocomplete="off" id="date_dr_number" wire:model.defer="date_dr_number"
+                                        autocomplete="off" id="date_dr_number" wire:model.blur="date_dr_number"
                                         placeholder="DR-123456">
                                     <div class="input-line"></div>
                                 </div>
@@ -171,7 +171,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="text" class="form-control @error('invoice') is-invalid @enderror"
-                                        autocomplete="off" id="invoice" wire:model.defer="invoice"
+                                        autocomplete="off" id="invoice" wire:model.blur="invoice"
                                         placeholder="INV-2024-001">
                                     <div class="input-line"></div>
                                 </div>
@@ -190,7 +190,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <select class="form-control @error('nationality') is-invalid @enderror"
-                                        id="nationality" wire:model.defer="nationality">
+                                        id="nationality" wire:model.blur="nationality">
                                         <option value="">— اختر الجنسية —</option>
                                         @foreach ($nationalities as $value)
                                             <option value="{{ $value->id }}">
@@ -216,7 +216,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <select class="form-control @error('coach') is-invalid @enderror" id="coach"
-                                        wire:model.defer="coach" dir="rtl">
+                                        wire:model.blur="coach" dir="rtl">
                                         <option value="">— هەڵبژێرە —</option>
                                         @foreach ($coachs as $coachItem)
                                             <option value="{{ $coachItem->id }}">
@@ -245,7 +245,7 @@
                                 <div class="input-wrapper">
                                     <input type="text"
                                         class="form-control @error('number_car') is-invalid @enderror"
-                                        id="number_car" autocomplete="off" wire:model.defer="number_car"
+                                        id="number_car" autocomplete="off" wire:model.blur="number_car"
                                         placeholder="A-1234">
                                     <div class="input-line"></div>
                                 </div>
@@ -264,7 +264,7 @@
                                 </label>
                                 <div class="input-wrapper">
                                     <select class="form-control @error('typecar') is-invalid @enderror"
-                                        id="typecar" wire:model.defer="typecar">
+                                        id="typecar" wire:model.blur="typecar">
                                         <option value="">— هەڵبژێرە —</option>
                                         <option value="0">ئوتوماتیک</option>
                                         <option value="1">عادی</option>
@@ -282,17 +282,17 @@
                         <!-- Data Start -->
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="data_start" class="form-label">
+                                <label for="date_start" class="form-label">
                                     <i class="bi bi-calendar label-icon"></i>
                                     روژا دەست پێکرنێ
                                 </label>
                                 <div class="input-wrapper">
                                     <input type="date"
-                                        class="form-control @error('data_start') is-invalid @enderror"
-                                        id="data_start" wire:model.live="data_start">
+                                        class="form-control @error('date_start') is-invalid @enderror"
+                                        id="date_start" wire:model.live="date_start">
                                     <div class="input-line"></div>
                                 </div>
-                                @error('data_start')
+                                @error('date_start')
                                     <div class="error-message">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -311,7 +311,7 @@
                                         wire:model.live="learn">
                                         <option value="">— هەڵبژێرە —</option>
                                         <option value="0">فێرکرن</option>
-                                        <option value="1">فێرکرن و وانە</option>
+                                        <option value="1">وانە و فێرکرن</option>
                                     </select>
                                     <div class="input-line"></div>
                                 </div>
@@ -407,7 +407,7 @@
             <div class="table-toolbar">
                 <div class="search-box">
                     <i class="bi bi-search"></i>
-                    <input type="text" wire:model.live="search"
+                    <input type="text" wire:model.live.debounce.500ms="search"
                         placeholder="گەریان ل ناڤ، موبایل، ناونیشان ،راهێنەری...">
 
                 </div>
@@ -417,7 +417,7 @@
                 <table class="custom-table">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th class="text-center">#</th>
                             <th class="text-center">ناڤ</th>
                             <th class="text-center">ناونیشان</th>
                             <th class="text-center">موبایل</th>
@@ -431,7 +431,7 @@
                     <tbody>
                         @forelse ($Students as $index => $Student)
                             <tr>
-                                <td style="font-weight:600; color:var(--primary);">
+                                <td style="font-weight:600; color:var(--primary);" class="text-center">
                                     {{ $index + 1 }}
                                 </td>
 
@@ -445,7 +445,7 @@
                                 <td class="text-center fw-bold">
                                     {{ $Student->learn == 0 ? 'فێرکرن' : ($Student->learn == 1 ? 'فێرکرن و وانە' : '-') }}
                                 </td>
-                                <td class="text-center">{{ $Student->data_start ?? '-' }}</td>
+                                <td class="text-center">{{ $Student->date_start ?? '-' }}</td>
 
                                 <!-- Actions -->
                                 <td class="align-middle">
@@ -481,8 +481,38 @@
 
             <!-- Pagination -->
             @if ($Students->hasPages())
-                <div class="mt-3">
-                    {{ $Students->links() }}
+                <div class="d-flex align-items-center justify-content-between p-3 flex-wrap gap-2"
+                    style="border-top:1px solid var(--border);">
+
+                    <!-- Showing items info -->
+                    <div style="font-size:13px;color:var(--text-secondary);">
+                        عرض {{ $Students->firstItem() }}–{{ $Students->lastItem() }} من أصل
+                        {{ $Students->total() }} جنسية
+                    </div>
+
+                    <!-- Pager buttons -->
+                    <div class="pager d-flex gap-1">
+                        <!-- Previous Page -->
+                        <button class="pager-btn {{ $Students->onFirstPage() ? 'disabled' : '' }}"
+                            wire:click.prevent="previousPage" @if ($Students->onFirstPage()) disabled @endif>
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+
+                        <!-- Page Numbers -->
+                        @foreach ($Students->getUrlRange(1, $Students->lastPage()) as $page => $url)
+                            <button class="pager-btn {{ $page == $Students->currentPage() ? 'active' : '' }}"
+                                wire:click.prevent="gotoPage({{ $page }})">
+                                {{ $page }}
+                            </button>
+                        @endforeach
+
+                        <!-- Next Page -->
+                        <button
+                            class="pager-btn {{ $Students->currentPage() == $Students->lastPage() ? 'disabled' : '' }}"
+                            wire:click.prevent="nextPage" @if ($Students->currentPage() == $Students->lastPage()) disabled @endif>
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                    </div>
                 </div>
             @endif
         </div>

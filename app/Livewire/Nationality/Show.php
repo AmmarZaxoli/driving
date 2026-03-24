@@ -55,7 +55,7 @@ class Show extends Component
         flash()->success(
             $isEdit
                 ? 'هاتە گوهرین'
-                : 'هاتە تومارکرن'
+                : 'هاتە زێـدەکــرن'
         );
 
         $this->resetForm();
@@ -87,7 +87,7 @@ class Show extends Component
     public function deleteNationality($id)
     {
 
-        $nationality = Nationality::find($id);
+        $nationality = Nationality::findOrFail($id);
 
         if ($nationality) {
             $nationality->delete();

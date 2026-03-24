@@ -95,25 +95,27 @@ class Manage extends Component
     {
         $attendances = Attendance::with('student', 'coach')
 
-            // ✅ Filter by coach (optional)
+            // ✅ Filter by coach
             ->when($this->coach_id, function ($q) {
                 $q->where('coach_id', $this->coach_id);
             })
 
-            // ✅ Date logic
-            ->when($this->date_from && $this->date_to, function ($q) {
-                // 🔹 If user selected date range → use it
-                $q->whereBetween('date_learn', [$this->date_from, $this->date_to]);
-            }, function ($q) {
-                // 🔥 DEFAULT → today
-                $q->whereDate('date_learn', Carbon::today());
+            // ✅ Date logic (مەرجێ ڕێکەوتێ تەنها دەما سێرچ نەبیت)
+            ->when(!$this->search, function ($q) {
+                if ($this->date_from && $this->date_to) {
+                    $q->whereBetween('date_learn', [$this->date_from, $this->date_to]);
+                } else {
+                    $q->whereDate('date_learn', \Carbon\Carbon::today());
+                }
             })
 
             // ✅ Search (name + mobile)
             ->when($this->search, function ($q) {
                 $q->whereHas('student', function ($s) {
-                    $s->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('mobile_number', 'like', '%' . $this->search . '%');
+                    $s->where(function ($sub) {
+                        $sub->where('name', 'like', '%' . $this->search . '%')
+                            ->orWhere('mobile_number', 'like', '%' . $this->search . '%');
+                    });
                 });
             })
 

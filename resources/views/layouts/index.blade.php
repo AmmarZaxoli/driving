@@ -53,14 +53,33 @@
                 </a>
             </div>
 
+           
             <div class="nav-item-wrapper">
-                <a class="nav-btn {{ request()->routeIs('student') ? 'active' : '' }}" href="{{ route('student') }}"> <i
-                        class="bi bi-person-lines-fill"></i>
-                    <span class="nav-label">فێرخاز</span>
-                </a>
+                <button class="nav-btn" onclick="toggleSub('sub-student', this)">
+                    <i class="bi bi-person nav-icon"></i>
+                    <span class="nav-label">کارگێڕیا فـێـــرخـاز</span>
+                    <i class="bi bi-chevron-down nav-arrow" id="arrow-student"></i>
+                </button>
+
+
+                <div class="subnav {{ request()->routeIs('student*', 'addToClass*','writeing*') ? 'open' : '' }}"
+                    id="sub-student">
+
+                    <a class="sub-btn {{ request()->routeIs('student') ? 'active' : '' }}" href="{{ route('student') }}">
+                        <span class="nav-label">فـێـــرخـاز</span>
+                    </a>
+
+                    <a class="sub-btn {{ request()->routeIs('addToClass') ? 'active' : '' }}" href="{{ route('addToClass') }}">
+                        <span class="nav-label">گروپێن فێرخازان</span>
+                    </a>
+
+                    <a class="sub-btn {{ request()->routeIs('writeing') ? 'active' : '' }}" href="{{ route('writeing') }}">
+                        <span class="nav-label">نە ئامادە بوونێن وانان</span>
+                    </a>
+
+                </div>
+
             </div>
-
-
 
             <div class="nav-item-wrapper">
                 <a class="nav-btn {{ request()->routeIs('nationality') ? 'active' : '' }}"
@@ -92,7 +111,7 @@
                         <span class="nav-label">زێدە کرنا راهێنەری</span>
                     </a>
 
-                    <a class="sub-btn {{ request()->routeIs('studentwrite') ? 'active' : '' }}"
+                    {{-- <a class="sub-btn {{ request()->routeIs('studentwrite') ? 'active' : '' }}"
                         href="{{ route('studentwrite') }}">
                         <span class="nav-label">بەشیێ فێرکرنێ</span>
                     </a>
@@ -100,11 +119,36 @@
                     <a class="sub-btn {{ request()->routeIs('studentAbsent') ? 'active' : '' }}"
                         href="{{ route('studentAbsent') }}">
                         <span class="nav-label">نە ئامادە بوون</span>
-                    </a>
+                    </a> --}}
 
 
                 </div>
             </div>
+
+            <div class="nav-item-wrapper">
+
+                <button class="nav-btn" onclick="toggleSub('sub-teachers', this)">
+                    <i class="bi bi-person-video3 nav-icon"></i>
+                    <span class="nav-label">کارگێڕیا ماموستای</span>
+                    <i class="bi bi-chevron-down nav-arrow" id="arrow-teachers"></i>
+                </button>
+
+                <div class="subnav {{ request()->routeIs('techer*', 'studentwrite*', 'studentAbsent*') ? 'open' : '' }}"
+                    id="sub-teachers">
+                    @if (auth('admin')->check() && auth('admin')->user()->role == 'admin')
+                        <a class="sub-btn {{ request()->routeIs('techer') ? 'active' : '' }}"
+                            href="{{ route('techer') }}">
+                            <span class="nav-label">زێدە کرنا ماموستای</span>
+                        </a>
+                    @endif
+
+                    <a class="sub-btn {{ request()->routeIs('studentwrite') ? 'active' : '' }}"
+                        href="{{ route('studentwrite') }}">
+                        <span class="nav-label">بەشیێ فێرکرنێ</span>
+                    </a>
+                </div>
+            </div>
+
 
 
 

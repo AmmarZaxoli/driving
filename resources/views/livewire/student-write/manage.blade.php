@@ -12,56 +12,57 @@
 
 
             <div class="table-toolbar">
-                <div class="row ">
-                    <!-- Search Box - Larger on mobile, flexible on desktop -->
-                    <div class="col-12 col-md-5">
-                        <div class="search-box ">
+                <div class="toolbar-filters">
+
+                    {{-- Search --}}
+                    <div class="filter-group" style="flex: 2; min-width: 200px;">
+                        <div class="search-box">
                             <i class="bi bi-search"></i>
-                            <input type="text" wire:model.live="search"
-                                placeholder="ل گەریان ب ناڤی قوتابی یان موبایل...">
-
+                            <input type="text" wire:model.live="search" placeholder="ل گەریان ب ناڤی،موبایل...">
                         </div>
                     </div>
 
-                    <!-- Coach Select with better styling -->
-                    <div class="col-12 col-md-4">
-                        <div class="filter-group">
-                            <div class="select-wrapper">
-                                <select wire:model.live="coach_id" style="height: 43px" class="form-select">
-                                    <option value="">— ڕاهێنەران —</option>
-                                    @foreach ($coachs as $coach)
-                                        <option value="{{ $coach->id }}">
-                                            {{ $coach->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                    {{-- Coach Select --}}
+                    <div class="filter-group" style="flex: 2; min-width: 180px;">
+                        <select wire:model.live="coach_id" class="form-select toolbar-input">
+                            <option value="">— ڕاهێنەران —</option>
+                            @foreach ($coachs as $coach)
+                                <option value="{{ $coach->id }}">{{ $coach->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
-                    <!-- Print Button - Using Your Design Classes -->
-                    <div class="col-2">
-                        <button class="action-btn print" style="height: 43px;width: 60px;" title="پرێنت"
-                            onclick="printFilteredStudents()">
+                    {{-- Date From --}}
+                    <div class="filter-group">
+                        <label class="form-label">ژ مێژویا</label>
+                        <input type="date" wire:model.defer="date_from" id="date_from"
+                            class="form-control toolbar-input">
+                    </div>
+
+                    {{-- Date To --}}
+                    <div class="filter-group">
+                        <label class="form-label">تا مێژویا</label>
+                        <input type="date" wire:model.defer="date_to" id="date_to"
+                            class="form-control toolbar-input">
+                    </div>
+
+                    {{-- Filter Button --}}
+                    <div class="filter-group">
+                        <label class="form-label">&nbsp;</label>
+                        <button class="btn-filter toolbar-input" wire:click="filter">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                    </div>
+
+                    {{-- Print Button --}}
+                    <div class="filter-group">
+                        <label class="form-label">&nbsp;</label>
+                        <button class="action-btn print toolbar-input" title="پرێنت" onclick="printFilteredStudents()"
+                            style="width: 42px;">
                             <i class="bi bi-printer"></i>
                         </button>
                     </div>
 
-                    <div class="col-md-3 mt-3 mt-md-10">
-                        <label class="form-label" for="date_from">ژ مێژویا </label>
-                        <input type="date" wire:model.defer="date_from" id="date_from" class="form-control">
-                    </div>
-
-                    <div class="col-md-3 mt-3 mt-md-10">
-                        <label class="form-label" for="date_to">تا مێژویا</label>
-                        <input type="date" wire:model.defer="date_to" id="date_to" class="form-control">
-                    </div>
-
-                    <div class="col-4" style="margin-top: 50px">
-                        <button class="btn-filter" wire:click="filter">
-                            <i class="fas fa-filter"></i> Filter
-                        </button>
-                    </div>
                 </div>
             </div>
 

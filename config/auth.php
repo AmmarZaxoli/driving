@@ -14,29 +14,29 @@ return [
     */
 
     'guards' => [
-    'admin' => [
-        'driver' => 'session',
-        'provider' => 'accounts',
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'accounts',
+        ],
+        'coach' => [
+            'driver' => 'session',
+            'provider' => 'coaches',
+        ],
     ],
-    'coach' => [
-        'driver' => 'session',
-        'provider' => 'coaches',
-    ],
-],
 
-'providers' => [
-    'accounts' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Account::class,
+    'providers' => [
+        'accounts' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Account::class,
+        ],
+        'coaches' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Coach::class,
+        ],
     ],
-    'coaches' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Coach::class,
-    ],
-],
 
 
-    
+
 
     /*
     |--------------------------------------------------------------------------

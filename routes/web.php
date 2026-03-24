@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::middleware(['is.logged'])->group(function () {
     // لۆگینی ئەدمین
     Route::get('/admin/login', AdminLogin::class)->name('admin.login');
-    
+
     // لۆگینی درایڤەر (Coach)
     Route::get('/login', Login::class)->name('login');
 });
@@ -47,7 +47,9 @@ Route::middleware(['auth:admin', 'prevent-back'])->group(function () {
     Route::view('/nationality', 'nationality.create')->name('nationality');
     Route::view('/cart', 'cart.create')->name('cart');
     Route::view('/studentwrite', 'studentwrite.create')->name('studentwrite');
-
+    Route::view('/teacher', 'techer.create')->name('techer');
+    Route::view('/student/addtoclass', 'student.addtoclass')->name('addToClass');
+    Route::view('/student/writeing', 'student.writeing')->name('writeing');
     // Printing Routes
     Route::get('/students/print/{id}', function ($id) {
         $student = Student::with('coach', 'nationality')->findOrFail($id);

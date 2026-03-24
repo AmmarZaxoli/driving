@@ -151,7 +151,7 @@
             </div>
         </div>
     </div>
-    <div wire:loading>
+    <div wire:loading wire:target="deleteabsent">
         @include('components.loading-overlay')
     </div>
 

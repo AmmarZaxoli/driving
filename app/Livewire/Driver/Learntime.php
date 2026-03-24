@@ -20,8 +20,8 @@ class Learntime extends Component
     public $id;
     public $coach;
     public $search = '';
-    public $learn = [];      // selected learn_type per student
-    public $learnTypes = []; // all learntypes for dropdown
+    public $learn = [];      
+    public $learnTypes = [];
     public $arrayId = [];
 
     public function saveSelected()

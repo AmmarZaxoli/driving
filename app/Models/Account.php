@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-// ١. ئەڤێ ل جهێ Illuminate\Database\Eloquent\Model بکاربینە
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-// ٢. دڤێت کلاسێ تە "extends Authenticatable" بیت
 class Account extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-   
+
 
     protected $fillable = [
         'name',
+        'role',
         'password',
     ];
 
@@ -23,4 +23,9 @@ class Account extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin'; 
+    }
 }

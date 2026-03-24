@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'name',
         'mother_name',
@@ -21,7 +23,7 @@ class Student extends Model
         'typecar',
         'learn',
         'status',
-        'data_start',
+        'date_start',
         'date_learn',
         'time',
         'time2',
