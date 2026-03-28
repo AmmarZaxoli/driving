@@ -30,14 +30,9 @@ class StudentFactory extends Factory
     public function learning()
     {
         return $this->state(function (array $attributes) {
-            $date_start = fake()->date(); // generate date_start here
+            
             return [
-                'learn' => 0,
-                'date_start' => $date_start,
-                'date_learn' => $date_start, // same as date_start
-                'time' => fake()->time(),
-                'time2' => fake()->time(),
-                'dayoflearn' => fake()->randomElement([6, 12]),
+                'learn' => 0
             ];
         });
     }
@@ -48,10 +43,9 @@ class StudentFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'learn' => 1,
-                'date_learn' => null,           // ONLY date_learn is NULL
-                'time' => fake()->time(),       // still filled
-                'time2' => null,
-                'dayoflearn' => 0,
+                'dateread' => null,          
+                'time' => fake()->time(),   
+                
             ];
         });
     }

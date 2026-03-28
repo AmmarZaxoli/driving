@@ -80,7 +80,7 @@ class Manage extends Component
             // Update student
             if ($student) {
                 $student->increment('dayoflearn', 1, [
-                    'date_learn' => $this->date_learn,
+                    'datelearn' => $this->date_learn,
                 ]);
             }
         });

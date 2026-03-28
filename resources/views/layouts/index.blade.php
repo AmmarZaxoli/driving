@@ -53,7 +53,7 @@
                 </a>
             </div>
 
-           
+
             <div class="nav-item-wrapper">
                 <button class="nav-btn" onclick="toggleSub('sub-student', this)">
                     <i class="bi bi-person nav-icon"></i>
@@ -62,19 +62,27 @@
                 </button>
 
 
-                <div class="subnav {{ request()->routeIs('student*', 'addToClass*','writeing*') ? 'open' : '' }}"
+                <div class="subnav {{ request()->routeIs('student*', 'addToClass*', 'writeing*', 'studentwrite*') ? 'open' : '' }}"
                     id="sub-student">
 
-                    <a class="sub-btn {{ request()->routeIs('student') ? 'active' : '' }}" href="{{ route('student') }}">
+                    <a class="sub-btn {{ request()->routeIs('student') ? 'active' : '' }}"
+                        href="{{ route('student') }}">
                         <span class="nav-label">فـێـــرخـاز</span>
                     </a>
 
-                    <a class="sub-btn {{ request()->routeIs('addToClass') ? 'active' : '' }}" href="{{ route('addToClass') }}">
+                    <a class="sub-btn {{ request()->routeIs('addToClass') ? 'active' : '' }}"
+                        href="{{ route('addToClass') }}">
                         <span class="nav-label">گروپێن فێرخازان</span>
                     </a>
 
-                    <a class="sub-btn {{ request()->routeIs('writeing') ? 'active' : '' }}" href="{{ route('writeing') }}">
-                        <span class="nav-label">نە ئامادە بوونێن وانان</span>
+                    <a class="sub-btn {{ request()->routeIs('writeing') ? 'active' : '' }}"
+                        href="{{ route('writeing') }}">
+                        <span class="nav-label"> ئامادە بوون وانە</span>
+                    </a>
+
+                    <a class="sub-btn {{ request()->routeIs('studentwrite') ? 'active' : '' }}"
+                        href="{{ route('studentwrite') }}">
+                        <span class="nav-label">بەشیێ فێرکرنێ</span>
                     </a>
 
                 </div>
@@ -105,10 +113,15 @@
                     <i class="bi bi-chevron-down nav-arrow" id="arrow-users"></i>
                 </button>
 
-                <div class="subnav {{ request()->routeIs('coach*', 'studentwrite*', 'studentAbsent*') ? 'open' : '' }}"
-                    id="sub-users">
+                <div class="subnav {{ request()->routeIs('coach*', 'recordtime*') ? 'open' : '' }}" id="sub-users">
+
                     <a class="sub-btn {{ request()->routeIs('coach') ? 'active' : '' }}" href="{{ route('coach') }}">
                         <span class="nav-label">زێدە کرنا راهێنەری</span>
+                    </a>
+
+                    <a class="sub-btn {{ request()->routeIs('recordtime') ? 'active' : '' }}"
+                        href="{{ route('recordtime') }}">
+                        <span class="nav-label">بەشێ ژڤانێ فێرکرنێ</span>
                     </a>
 
                     {{-- <a class="sub-btn {{ request()->routeIs('studentwrite') ? 'active' : '' }}"
@@ -133,8 +146,7 @@
                     <i class="bi bi-chevron-down nav-arrow" id="arrow-teachers"></i>
                 </button>
 
-                <div class="subnav {{ request()->routeIs('techer*', 'studentwrite*', 'studentAbsent*') ? 'open' : '' }}"
-                    id="sub-teachers">
+                <div class="subnav {{ request()->routeIs('techer*') ? 'open' : '' }}" id="sub-teachers">
                     @if (auth('admin')->check() && auth('admin')->user()->role == 'admin')
                         <a class="sub-btn {{ request()->routeIs('techer') ? 'active' : '' }}"
                             href="{{ route('techer') }}">
@@ -142,10 +154,7 @@
                         </a>
                     @endif
 
-                    <a class="sub-btn {{ request()->routeIs('studentwrite') ? 'active' : '' }}"
-                        href="{{ route('studentwrite') }}">
-                        <span class="nav-label">بەشیێ فێرکرنێ</span>
-                    </a>
+
                 </div>
             </div>
 

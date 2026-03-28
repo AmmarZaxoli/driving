@@ -14,20 +14,33 @@ class Student extends Model
         'birthday',
         'location',
         'mobile_number',
+
         'date_join',
         'date_dr_number',
+
         'invoice',
+
         'nationality_id',
         'coach_id',
+
         'number_car',
+
         'typecar',
         'learn',
+
         'status',
-        'date_start',
-        'date_learn',
+
+        'dateread',
         'time',
-        'time2',
+        'dayofpresence',
+        'statuspresence',
+
+        'datelearn',
+        'stimelearn',
+        'ftimelearn',
         'dayoflearn',
+
+        'class',
     ];
 
 

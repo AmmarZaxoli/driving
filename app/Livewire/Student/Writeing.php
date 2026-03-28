@@ -15,21 +15,88 @@ class Writeing extends Component
     public $name;
 
     public $arrayId = [];
+    public $adddayofgroup = false;
     public $selectAll = false;
 
+    public $groupday;
+    public $groupdayselected;
+    public $groupdays = [];
+
+    public $dayoflearning;
+
+    public function selectGroupDay($name)
+    {
+        $this->groupday = $name;
+        $this->groupdayselected = $name;
+        $this->groupdays = [];
+    }
+
+    public function toggleForm()
+    {
+        $this->adddayofgroup = ! $this->adddayofgroup;
+
+        if (!$this->adddayofgroup) {
+            // $this->resetForm();
+        }
+    }
+
+
+
+    public function saveGroupDay()
+    {
+       
+        if(empty($this->groupdayselected)) {
+            flash()->error('Please select a group');
+            return;
+        }
+        if(empty($this->dayoflearning)) {
+            flash()->error('Please select a day of learning');
+            return;
+        }
+
+       
+        $group = Group::where('name', $this->groupdayselected)->first();
+
+        if ($group) {
+            $group->update([
+                'dayoflearning' => $this->dayoflearning
+            ]);
+        }
+
+        flash()->success('Saved successfully');
+    }
+
+    public function clearGroupDay()
+    {
+        $this->groupday = '';
+        $this->groupdayselected = '';
+        $this->groupdays = [];
+    }
     /* =========================
        SEARCH GROUP
     ==========================*/
 
+    public function updatedGroupday()
+    {
+        if ($this->groupday && empty($this->groupdayselected)) {
+
+            $this->groupdays = Group::where('name', 'like', '%' . $this->groupday . '%')
+                ->latest()
+                ->take(10)
+                ->get();
+        } else {
+
+            $this->groupdays = [];
+        }
+    }
     public function updatedName()
     {
         if ($this->name && empty($this->nameselected)) {
 
-            $this->groups = Group::where('name','like','%'.$this->name.'%')
+            $this->groups = Group::where('name', 'like', '%' . $this->name . '%')
                 ->latest()
                 ->take(10)
                 ->get();
-
         } else {
             $this->groups = [];
         }
@@ -65,7 +132,7 @@ class Writeing extends Component
 
     public function loadStudents()
     {
-        $this->students = Student::where('class',$this->nameselected)->get();
+        $this->students = Student::where('class', $this->nameselected)->get();
     }
 
     /* =========================
@@ -74,16 +141,14 @@ class Writeing extends Component
 
     public function updatedSelectAll($value)
     {
-        if($value){
+        if ($value) {
 
             $this->arrayId = collect($this->students)
                 ->pluck('id')
                 ->toArray();
-
-        }else{
+        } else {
 
             $this->arrayId = [];
-
         }
     }
 

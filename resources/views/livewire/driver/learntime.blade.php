@@ -31,14 +31,13 @@
             <table class="custom-table">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th class="text-center">#</th>
                         <th><input type="checkbox" class="form-check-input" onclick="selectAll(this)"
                                 style="cursor: pointer" /></th>
                         <th class="text-center">ناڤ</th>
                         <th class="text-center">ناونیشان</th>
                         <th class="text-center">موبایل</th>
                         <th class="text-center"> جورێ ئوتومبێلێ</th>
-                        <th class="text-center">روژا دەستپێکرنێ</th>
                         <th class="text-center">کات</th>
                         <th class="text-center">کات</th>
                         <th class="text-center">روژێن ماین</th>
@@ -49,7 +48,7 @@
                 <tbody>
                     @forelse ($students as $index => $Student)
                         <tr style="{{ $Student->todayAbsent ? 'background-color:#f8d7da;' : '' }}">
-                            <td style="font-weight:600; color:var(--primary);">
+                            <td class="text-center" style="font-weight:600; color:var(--primary);">
                                 {{ $index + 1 }}
                             </td>
                             <td>
@@ -63,12 +62,12 @@
                                 {{ $Student->typecar == 0 ? 'ئوتوماتیک' : ($Student->typecar == 1 ? 'عادی' : '-') }}
                             </td>
 
-                            <td class="text-center">{{ $Student->data_start ?? '-' }}</td>
+
                             <td class="text-center">
-                                {{ $Student->time ? \Carbon\Carbon::parse($Student->time)->format('h:i A') : '-' }}
+                                {{ $Student->stimelearn ? \Carbon\Carbon::parse($Student->stimelearn)->format('h:i A') : '-' }}
                             </td>
                             <td class="text-center">
-                                {{ $Student->time2 ? \Carbon\Carbon::parse($Student->time2)->format('h:i A') : '-' }}
+                                {{ $Student->ftimelearn ? \Carbon\Carbon::parse($Student->ftimelearn)->format('h:i A') : '-' }}
                             </td>
                             <td class="text-center">
                                 {{ $Student->dayoflearn ?: '-' }}
@@ -84,10 +83,12 @@
                                 </select>
                             </td>
                             <td class="align-middle">
-                                <button class="action-btn save" title="تومارکرن"
-                                    wire:click="save({{ $Student->id }})">
-                                    <i class="bi bi-check-lg"></i>
-                                </button>
+                                <div class="d-flex justify-content-center">
+                                    <button class="action-btn save" title="تومارکرن"
+                                        wire:click="save({{ $Student->id }})">
+                                        <i class="bi bi-check-lg"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     @empty

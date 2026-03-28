@@ -61,7 +61,8 @@ class AddToClass extends Component
     {
         if ($this->nameChange && empty($this->nameselectedTochange)) {
 
-            $this->groupsChange = Group::where('name', 'like', '%' . $this->nameChange . '%')
+            $this->groupsChange = Group::where('status', 0)
+                ->where('name', 'like', '%' . $this->nameChange . '%')
                 ->latest()
                 ->take(10)
                 ->get();
@@ -177,10 +178,13 @@ class AddToClass extends Component
 
     public function updatedName()
     {
-        if ($this->name && empty($this->nameselected)) {
-            $this->groups = Group::where('name', 'like', '%' . $this->name . '%')
+        if ($this->name && !$this->nameselected) {
+
+            $this->groups = Group::query()
+                ->where('status', 0)
+                ->where('name', 'like', "%{$this->name}%")
                 ->latest()
-                ->take(10)
+                ->limit(10)
                 ->get();
         } else {
             $this->groups = [];
@@ -188,10 +192,9 @@ class AddToClass extends Component
     }
 
 
-
     public function render()
     {
-        // خشتێ ئێکێ: بکارئینانا 'page' وەک ناڤێ لاپەڕەی
+     
         $students = Student::query()
             ->where('status', 0)
             ->where('learn', 1)
@@ -205,9 +208,8 @@ class AddToClass extends Component
                 });
             })
             ->orderBy('name')
-            ->paginate(10, ['*'], 'studentsPage'); // <--- ناڤێ لاپەڕێ خشتێ ١
+            ->paginate(10, ['*'], 'studentsPage'); 
 
-        // خشتێ دووێ: بکارئینانا ناڤەکێ جیاواز
         $studentsCa = Student::query()
             ->whereNotNull('class')
             ->where('class', '!=', '')
@@ -221,7 +223,7 @@ class AddToClass extends Component
                 });
             })
             ->orderBy('name')
-            ->paginate(10, ['*'], 'classedPage'); // <--- ناڤێ لاپەڕێ خشتێ ٢
+            ->paginate(10, ['*'], 'classedPage');
 
         return view('livewire.student.add-to-class', [
             'students' => $students,

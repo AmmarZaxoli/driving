@@ -37,17 +37,24 @@ return new class extends Migration
 
             $table->string('number_car');
 
-            $table->integer('typecar'); 
-            $table->integer('learn');   
-            $table->boolean('status');   
-            $table->integer('dayoflearn');   
+            $table->integer('typecar');
+            $table->integer('learn');
 
-            $table->date('date_start')->nullable();
-            $table->date('date_learn')->nullable();
+            $table->boolean('status')->default(0);
+
+            $table->date('dateread')->nullable();
             $table->time('time')->nullable();
-            $table->time('time2')->nullable();
-
+            $table->integer('statuspresence')->default(0);
+            $table->integer('dayofpresence')->default(0);
             $table->string('class')->nullable();
+
+            $table->date('datelearn')->nullable();
+            $table->boolean('statuslearn')->default(0);
+            $table->integer('dayoflearn')->default(0);
+
+
+
+
 
             $table->timestamps();
         });

@@ -56,8 +56,8 @@ class Learntime extends Component
                 'coach_id' => Auth::id(),
             ]);
 
-            // Increment date_learn in students table
-            Student::where('id', $id)->increment('date_learn', 1);
+            // Increment datelearn in students table
+            Student::where('id', $id)->increment('datelearn', 1);
         }
 
         flash()->success('Selected students marked absent and updated successfully!');
@@ -101,7 +101,7 @@ class Learntime extends Component
 
         // Update student's next learning date (-1 day) and increment dayoflearn
         $student = Student::findOrFail($studentId);
-        $student->date_learn = Carbon::parse($student->date_learn ?? now())->addDay();
+        $student->datelearn = Carbon::parse($student->datelearn ?? now())->addDay();
         $student->dayoflearn = ($student->dayoflearn ?? 0) - 1;
         if($student->dayoflearn == 0){
             $student->status = 1; 
@@ -120,7 +120,7 @@ class Learntime extends Component
         $students = Student::with('todayAbsent')
             ->where('learn', 0)
             ->where('status', 0)
-            ->whereDate('date_learn', '=', Carbon::today())
+            ->whereDate('datelearn', '=', Carbon::today())
             ->where('coach_id', Auth::id())
             ->where('dayoflearn', '>', 0)
             ->when($this->search, function ($query) {

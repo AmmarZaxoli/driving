@@ -47,14 +47,11 @@ class Adding extends Component
     public $learn;
     #[Session]
     public $number_car;
-    #[Session]
-    public $date_start;
+
     #[Session]
     public $nationalities;
     #[Session]
     public $time;
-    #[Session]
-    public $time2;
     #[Session]
     public $Studentadd;
     public $isEdit;
@@ -62,60 +59,58 @@ class Adding extends Component
     public $year;
 
 
-    #[Session]
-    public $dayoflearn;
 
 
-    public function updatedTime()
-    {
-        $this->calculateCounter();
-    }
+    // public function updatedTime()
+    // {
+    //     $this->calculateCounter();
+    // }
 
-    public function updatedTime2()
-    {
-        $this->calculateCounter();
-    }
+    // public function updatedTime2()
+    // {
+    //     $this->calculateCounter();
+    // }
 
-    public $errorMessage;
+    // public $errorMessage;
 
-    public function calculateCounter()
-    {
-        $this->errorMessage = null;
+    // public function calculateCounter()
+    // {
+    //     $this->errorMessage = null;
 
-        if ($this->time && $this->time2) {
-            $start = Carbon::parse($this->time);
-            $end   = Carbon::parse($this->time2);
+    //     if ($this->time && $this->time2) {
+    //         $start = Carbon::parse($this->time);
+    //         $end   = Carbon::parse($this->time2);
 
-            // Only consider the hour part
-            $hours = $end->hour - $start->hour;
+    //         // Only consider the hour part
+    //         $hours = $end->hour - $start->hour;
 
-            // Handle next day
-            if ($hours < 0) {
-                $hours += 24;
-            }
+    //         // Handle next day
+    //         if ($hours < 0) {
+    //             $hours += 24;
+    //         }
 
-            // Check for same time (0 hour)
-            if ($hours == 0) {
-                $this->dayoflearn = 0;
-                $this->errorMessage = 'نابت کات وەک ئێک بت';
-            }
-            // 1-hour session
-            elseif ($hours == 1) {
-                $this->dayoflearn = 12;
-            }
-            // 2-hour session
-            elseif ($hours == 2) {
-                $this->dayoflearn = 6;
-            }
-            // More than 2 hours
-            elseif ($hours >= 3) {
-                $this->dayoflearn = 0;
-                $this->errorMessage = 'نابت ژ ٢ کات ژمێرا ببوریت';
-            } else {
-                $this->dayoflearn = 0;
-            }
-        }
-    }
+    //         // Check for same time (0 hour)
+    //         if ($hours == 0) {
+    //             $this->dayoflearn = 0;
+    //             $this->errorMessage = 'نابت کات وەک ئێک بت';
+    //         }
+    //         // 1-hour session
+    //         elseif ($hours == 1) {
+    //             $this->dayoflearn = 12;
+    //         }
+    //         // 2-hour session
+    //         elseif ($hours == 2) {
+    //             $this->dayoflearn = 6;
+    //         }
+    //         // More than 2 hours
+    //         elseif ($hours >= 3) {
+    //             $this->dayoflearn = 0;
+    //             $this->errorMessage = 'نابت ژ ٢ کات ژمێرا ببوریت';
+    //         } else {
+    //             $this->dayoflearn = 0;
+    //         }
+    //     }
+    // }
 
     protected $rules = [
         'name' => 'required|min:3',
@@ -127,7 +122,6 @@ class Adding extends Component
 
 
         'date_dr_number' => 'nullable|date',
-        'date_start'     => 'nullable|date',
 
         'invoice' => 'required',
         'nationality' => 'required|exists:nationalities,id',
@@ -137,7 +131,6 @@ class Adding extends Component
         'learn' => 'required|in:0,1',
 
         'time' => 'nullable|date_format:H:i',
-        'time2' => 'nullable|date_format:H:i',
     ];
     public function toggleForm()
     {
@@ -157,10 +150,10 @@ class Adding extends Component
         $this->validate();
 
         // Fix for learn = 1
-        if ($this->learn == 1) {
-            $this->time2 = null;
-            $this->dayoflearn = 0;
-        }
+        // if ($this->learn == 1) {
+        //     $this->time2 = null;
+        //     $this->dayoflearn = 0;
+        // }
 
         if ($this->isEdit && $this->editId) {
 
@@ -174,8 +167,6 @@ class Adding extends Component
 
 
                 'date_dr_number' => $this->date_dr_number ?: null,
-                'date_start'     => $this->date_start ?: null,
-                'date_learn'     => $this->date_start ?: null,
 
                 'invoice' => $this->invoice,
                 'nationality_id' => $this->nationality,
@@ -185,9 +176,7 @@ class Adding extends Component
                 'learn' => $this->learn,
 
                 'time' => $this->time ?: null,
-                'time2' => $this->time2 ?: null,
 
-                'dayoflearn' => $this->dayoflearn,
             ]);
 
             flash()->success('هاتە گوهــریــن');
@@ -203,9 +192,6 @@ class Adding extends Component
 
 
                 'date_dr_number' => $this->date_dr_number ?: null,
-                'date_start'     => $this->date_start ?: null,
-                'date_learn'     => $this->date_start ?: null,
-
                 'invoice' => $this->invoice,
                 'nationality_id' => $this->nationality,
                 'coach_id' => $this->coach,
@@ -215,9 +201,7 @@ class Adding extends Component
                 'status' => false,
 
                 'time' => $this->time ?: null,
-                'time2' => $this->time2 ?: null,
 
-                'dayoflearn' => $this->dayoflearn,
             ]);
 
             flash()->success('هاتە زێـدەکــرن');
@@ -225,13 +209,13 @@ class Adding extends Component
 
         $this->resetForm();
     }
-    public function updatedLearn($value)
-    {
-        if ($value == 1) {
-            $this->time2 = null;
-            $this->dayoflearn = 0;
-        }
-    }
+    // public function updatedLearn($value)
+    // {
+    //     if ($value == 1) {
+    //         $this->time2 = null;
+    //         $this->dayoflearn = 0;
+    //     }
+    // }
     public function resetForm()
     {
         $this->reset([
@@ -248,13 +232,10 @@ class Adding extends Component
             'number_car',
             'typecar',
             'learn',
-            'date_start',
             'isEdit',
             'editId',
             'Studentadd',
             'time',
-            'time2',
-            'dayoflearn',
         ]);
     }
 
@@ -284,12 +265,9 @@ class Adding extends Component
             'number_car' => $student->number_car,
             'typecar' => $student->typecar,
             'learn' => $student->learn,
-            'date_start' => $student->date_start,
 
             'time' => $student->time ? Carbon::parse($student->time)->format('H:i') : null,
-            'time2' => $student->time2 ? Carbon::parse($student->time2)->format('H:i') : null,
 
-            'dayoflearn' => $student->dayoflearn,
         ]);
     }
 

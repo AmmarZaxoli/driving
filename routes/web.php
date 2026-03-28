@@ -50,6 +50,7 @@ Route::middleware(['auth:admin', 'prevent-back'])->group(function () {
     Route::view('/teacher', 'techer.create')->name('techer');
     Route::view('/student/addtoclass', 'student.addtoclass')->name('addToClass');
     Route::view('/student/writeing', 'student.writeing')->name('writeing');
+    Route::view('/driver/recordtime', 'driver.recordtime')->name('recordtime');
     // Printing Routes
     Route::get('/students/print/{id}', function ($id) {
         $student = Student::with('coach', 'nationality')->findOrFail($id);

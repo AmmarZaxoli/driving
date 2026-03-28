@@ -727,6 +727,7 @@ body {
     gap: 10px;
     border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
+
 }
 
 .search-box {
@@ -818,6 +819,12 @@ body {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    overflow: visible !important;
+}
+
+.table-card,
+.table-toolbar,
+.toolbar-filters {
     overflow: visible !important;
 }
 
@@ -1158,7 +1165,7 @@ body {
     right: 0;
     left: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    /* background: linear-gradient(90deg, var(--primary), var(--primary-light)); */
     border-radius: 0 0 10px 10px;
     transform: scaleX(0);
     transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
@@ -1745,11 +1752,7 @@ body {
     overflow: visible !important;
 }
 
-.form-header {
-    background: linear-gradient(135deg, var(--primary, #1a6b5a), var(--primary-light, #22896e));
-    padding: 25px 30px;
-    color: white;
-}
+
 
 
 /* ===== LOGIN PAGE ===== */
@@ -1952,4 +1955,334 @@ input[readonly] {
     border-color: var(--primary) !important;
     color: var(--primary) !important;
     cursor: default;
+}
+
+/* ===== FORM CARD ===== */
+.form-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    animation: fadeInUp 0.4s ease;
+}
+
+
+
+/* ===== TIME GRID ===== */
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    padding: 20px;
+}
+
+.time-slot {
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.time-slot:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+}
+
+.time-slot.booked {
+    background: rgba(26, 107, 90, 0.08);
+    border-color: var(--primary);
+    cursor: default;
+}
+
+.time-slot.blocked {
+    background: rgba(240, 165, 0, 0.08);
+    border-color: var(--accent);
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.time-slot.free:hover {
+    background: rgba(26, 107, 90, 0.04);
+}
+
+.slot-time {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.slot-student {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+
+.slot-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.slot-name {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.slot-duration {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.slot-range {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.slot-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.slot-free-label,
+.slot-blocked-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 0;
+}
+
+.slot-free-label {
+    color: var(--primary);
+}
+
+.slot-blocked-label {
+    color: var(--accent);
+}
+
+/* ===== SLOT LEGEND ===== */
+.slot-legend {
+    display: flex;
+    gap: 20px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-dot.free {
+    background: var(--border);
+    border: 2px solid var(--primary);
+}
+
+.legend-dot.booked {
+    background: var(--primary);
+}
+
+.legend-dot.blocked {
+    background: var(--accent);
+}
+
+/* ===== FRIDAY WARNING ===== */
+.friday-warning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    padding: 10px;
+    background: #ffeaea;
+    color: #b30000;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    font-size: 15px;
+}
+
+/* ===== DURATION PICKER ===== */
+.duration-picker {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.duration-opt {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    background: var(--bg);
+}
+
+.duration-opt:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.duration-opt.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-color: var(--primary);
+    color: #fff;
+}
+
+/* ===== SLOTS GRID ===== */
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+}
+
+.slot-btn {
+    position: relative;
+    padding: 12px 8px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.slot-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.slot-btn.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.slot-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.slot-btn.taken {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #dc2626;
+}
+
+.slot-btn-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.slot-btn-badge.taken {
+    background: #dc2626;
+    color: #fff;
+}
+
+.slot-btn-badge.overflow,
+.slot-btn-badge.overlap {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* ===== SLOT SUMMARY ===== */
+.slot-summary {
+    background: rgba(26, 107, 90, 0.08);
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* ===== AUTOCOMPLETE STUDENT ROW ===== */
+.autocomplete-student-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.autocomplete-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.autocomplete-name {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.autocomplete-sub {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
 }

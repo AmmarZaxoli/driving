@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->integer('presentations')->default(0);
+            $table->boolean('status')->default(0);
+            $table->date('dayoflearning')->nullable();
             $table->timestamps();
         });
     }

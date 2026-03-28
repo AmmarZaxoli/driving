@@ -210,8 +210,7 @@
                             <tr wire:key="classed-{{ $studentC->id }}">
                                 <td class="text-center table-number">{{ $loop->iteration }}</td>
                                 <td class="t-name text-success">{{ $studentC->name }}</td>
-                                <td class="text-center"><span
-                                        class="badge bg-light text-dark border">{{ $studentC->class }}</span></td>
+                                <td class="text-center">{{ $studentC->class }}</td>
                                 <td class="text-center">{{ $studentC->mobile_number }}</td>
                                 <td class="text-center">{{ $studentC->typecar == 0 ? 'ئوتوماتیک' : 'عادی' }}</td>
 
@@ -304,8 +303,6 @@
 
                 <div class="modal-footer">
 
-                    <button type="button" class="btn-outline-custom" data-bs-dismiss="modal">هەلوەشاندن</button>
-
 
                     <button type="button" class="btn-primary-custom" wire:click="saveSelectedchange"
                         wire:target="saveSelectedchange">
@@ -314,6 +311,9 @@
                         </span>
 
                     </button>
+
+
+                    <button type="button" class="btn-outline-custom" data-bs-dismiss="modal">هەلوەشاندن</button>
 
                 </div>
             </div>
