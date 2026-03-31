@@ -2,12 +2,15 @@
 
 namespace App\Livewire\Student;
 
+use App\Models\Absent;
 use App\Models\Group;
 use App\Models\Student;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class Writeing extends Component
 {
+    public $reasons = [];
     public $groups = [];
     public $students = [];
 
@@ -24,54 +27,68 @@ class Writeing extends Component
 
     public $dayoflearning;
 
-    public function selectGroupDay($name)
-    {
-        $this->groupday = $name;
-        $this->groupdayselected = $name;
-        $this->groupdays = [];
-    }
 
-    public function toggleForm()
-    {
-        $this->adddayofgroup = ! $this->adddayofgroup;
 
-        if (!$this->adddayofgroup) {
-            // $this->resetForm();
-        }
-    }
 
 
 
     public function saveGroupDay()
     {
-       
-        if(empty($this->groupdayselected)) {
+        if (empty($this->name)) {
             flash()->error('Please select a group');
             return;
         }
-        if(empty($this->dayoflearning)) {
-            flash()->error('Please select a day of learning');
+
+        if (empty($this->students)) {
+            flash()->error('No students found in this group');
             return;
         }
 
-       
-        $group = Group::where('name', $this->groupdayselected)->first();
+        $date = $this->dayoflearning ?? now()->toDateString();
 
-        if ($group) {
-            $group->update([
-                'dayoflearning' => $this->dayoflearning
-            ]);
+        $existingForDay = Absent::where('namegroup', $this->name)
+            ->where('date', $date)
+            ->exists();
+
+        if ($existingForDay) {
+            flash()->error('Attendance for this group on this day already exists.');
+            return;
         }
 
-        flash()->success('Saved successfully');
+        foreach ($this->students as $student) {
+
+            // 0 = present (checked) | 1 = absent (not checked)
+            $status = in_array($student->id, $this->arrayId) ? 0 : 1;
+
+            Absent::create([
+                'student_id' => $student->id,
+                'techer_id'  => Auth::id(),
+                'date'       => $date,
+                'status'     => $status,
+                'namegroup'  => $this->name,
+                'reason'     => $this->reasons[$student->id] ?? null,
+            ]);
+
+            // increment ONLY when student is NOT checked
+            if ($status === 1) {
+                Student::where('id', $student->id)
+                    ->increment('dayofpresence', 1);
+            }
+        }
+
+        // increment group presentations
+        Group::where('name', $this->name)->increment('presentations');
+
+        flash()->success('Group day attendance saved successfully');
+
+        $this->arrayId = [];
+        $this->students = [];
+        $this->reasons = [];
+        $this->clearGroup();
+        $this->selectAll = false;
     }
 
-    public function clearGroupDay()
-    {
-        $this->groupday = '';
-        $this->groupdayselected = '';
-        $this->groupdays = [];
-    }
+
     /* =========================
        SEARCH GROUP
     ==========================*/

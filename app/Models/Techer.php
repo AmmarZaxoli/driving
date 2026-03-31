@@ -21,4 +21,14 @@ class Techer extends Model
     protected $hidden = [
         'password',
     ];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
+
+    public function absents()
+    {
+        return $this->hasMany(Absent::class, 'techer_id');
+    }
 }

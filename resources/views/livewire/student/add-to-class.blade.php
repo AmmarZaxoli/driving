@@ -1,4 +1,5 @@
 <div>
+
     {{-- ===== HEADER ===== --}}
     <div class="section-header mb-4">
         <div>
@@ -12,6 +13,8 @@
             @endif
         </button>
     </div>
+
+
 
     {{-- ===== ADD GROUP FORM ===== --}}
     @if ($Groupadd)
@@ -31,17 +34,22 @@
                     <div class="text-start mt-3">
                         <button type="submit" class="btn-primary-custom" wire:loading.attr="disabled">
                             <span>تۆمارکردن</span>
-                            <i class="bi bi-plus-lg"></i>
+
                         </button>
                         <button type="button" class="btn-clear-custom" wire:click="resetForm">
                             <span>پاقـژکـــرن</span>
-                            <i class="bi bi-x-lg"></i>
+
                         </button>
                     </div>
                 </div>
             </form>
         </div>
     @endif
+
+
+
+
+
 
     {{-- Loading overlay --}}
     <div wire:loading wire:target="save">
@@ -138,7 +146,8 @@
                                 <td class="text-center">{{ $student->mobile_number ?? '-' }}</td>
                                 <td class="text-center fw-bold">{{ $student->typecar == 0 ? 'ئوتوماتیک' : 'عادی' }}
                                 </td>
-                                <td class="text-center fw-bold">{{ $student->learn == 0 ? 'فێرکرن' : 'وانە و فێرکرن' }}
+                                <td class="text-center fw-bold">
+                                    {{ $student->learn == 0 ? 'فێرکرن' : 'وانە و فێرکرن' }}
                                 </td>
                             </tr>
                         @endforeach
@@ -254,7 +263,7 @@
 
     <div class="modal fade" id="ChangeModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         wire:ignore.self>
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">

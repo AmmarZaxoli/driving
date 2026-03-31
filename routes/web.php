@@ -43,6 +43,7 @@ Route::middleware(['auth:admin', 'prevent-back'])->group(function () {
     Route::view('/learntype', 'learntype.create')->name('learntype');
     Route::view('/student', 'student.create')->name('student');
     Route::view('/student/absent', 'student.absent')->name('studentAbsent');
+    Route::view('/student/changegroup', 'student.changegrop')->name('changegroup');
     Route::view('/coach', 'coach.create')->name('coach');
     Route::view('/nationality', 'nationality.create')->name('nationality');
     Route::view('/cart', 'cart.create')->name('cart');

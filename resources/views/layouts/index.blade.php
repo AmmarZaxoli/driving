@@ -62,7 +62,7 @@
                 </button>
 
 
-                <div class="subnav {{ request()->routeIs('student*', 'addToClass*', 'writeing*', 'studentwrite*') ? 'open' : '' }}"
+                <div class="subnav {{ request()->routeIs('student*', 'addToClass*', 'writeing*', 'studentwrite*','changegroup*') ? 'open' : '' }}"
                     id="sub-student">
 
                     <a class="sub-btn {{ request()->routeIs('student') ? 'active' : '' }}"
@@ -73,6 +73,10 @@
                     <a class="sub-btn {{ request()->routeIs('addToClass') ? 'active' : '' }}"
                         href="{{ route('addToClass') }}">
                         <span class="nav-label">گروپێن فێرخازان</span>
+                    </a>
+                    <a class="sub-btn {{ request()->routeIs('changegroup') ? 'active' : '' }}"
+                        href="{{ route('changegroup') }}">
+                        <span class="nav-label">گروپێن </span>
                     </a>
 
                     <a class="sub-btn {{ request()->routeIs('writeing') ? 'active' : '' }}"
@@ -272,8 +276,6 @@
 
         <main class="main-content">
             @yield('content')
-
-
         </main>
     </div>
 

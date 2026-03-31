@@ -187,10 +187,12 @@
                     <i class="bi bi-check-lg"></i>
                     تۆمارکرن
                 </button>
-                <button class="btn-clear-custom" wire:click="toggleForm()">
-                    <i class="bi bi-x-lg"></i>
-                    داخستن
                 </button>
+
+                <button type="button" class="btn-clear-custom" wire:click="toggleForm()">
+                        <span>پاقـژکـــرن</span>
+                        <i class="bi bi-clear-lg"></i>
+                    </button>
             </div>
 
         </div>

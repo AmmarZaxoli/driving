@@ -14,6 +14,8 @@ class Group extends Model
         'presentations',
         'status',
         'dayoflearning',
+        'time1',
+        'time2',
     ];
 
 

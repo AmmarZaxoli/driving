@@ -20,7 +20,7 @@ class Learntime extends Component
     public $id;
     public $coach;
     public $search = '';
-    public $learn = [];      
+    public $learn = [];
     public $learnTypes = [];
     public $arrayId = [];
 
@@ -73,7 +73,7 @@ class Learntime extends Component
     {
         $today = Carbon::today()->toDateString();
 
-        // Check if student is already absent today
+        // Check if student already recorded today
         $alreadyAbsent = StudentInfo::where('student_id', $studentId)
             ->where('date_day', $today)
             ->exists();
@@ -83,7 +83,7 @@ class Learntime extends Component
             return false;
         }
 
-        // Get the selected learn type
+        // Get selected learn type
         $learnTypeId = $this->learn[$studentId] ?? null;
 
         if (!$learnTypeId) {
@@ -91,7 +91,7 @@ class Learntime extends Component
             return;
         }
 
-        // Create attendance
+        // Save attendance
         Attendance::create([
             'student_id' => $studentId,
             'learn_type' => $learnTypeId,
@@ -99,16 +99,28 @@ class Learntime extends Component
             'coach_id'   => Auth::id(),
         ]);
 
-        // Update student's next learning date (-1 day) and increment dayoflearn
+        // Get student
         $student = Student::findOrFail($studentId);
-        $student->datelearn = Carbon::parse($student->datelearn ?? now())->addDay();
-        $student->dayoflearn = ($student->dayoflearn ?? 0) - 1;
-        if($student->dayoflearn == 0){
-            $student->status = 1; 
+
+        // Calculate next learning date
+        $nextDate = Carbon::parse($student->datelearn ?? now())->addDay();
+
+        // Skip Friday
+        if ($nextDate->isFriday()) {
+            $nextDate->addDay(); // move to Saturday
         }
+
+        // Update student data
+        $student->datelearn = $nextDate;
+        $student->dayoflearn = ($student->dayoflearn ?? 0) - 1;
+
+        if ($student->dayoflearn == 0) {
+            $student->status = 1;
+        }
+
         $student->save();
 
-        flash()->success('Attendance saved, next learning date updated, and day of learn incremented!');
+        flash()->success('Attendance saved and next learning date updated!');
     }
 
 

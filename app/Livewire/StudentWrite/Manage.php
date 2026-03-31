@@ -58,8 +58,6 @@ class Manage extends Component
     public function deleteabsent()
     {
 
-
-
         $this->validate([
             'date_learn' => 'required|date',
         ]);

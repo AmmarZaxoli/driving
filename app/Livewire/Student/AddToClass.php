@@ -24,8 +24,12 @@ class AddToClass extends Component
     public $arrayId = [];
 
     public $nameChange;
+
     public $groupsChange = [];
+
     public $nameselectedTochange;
+
+    public $makedateforgrop = false;
 
     protected $rules = [
         'nameselected' => 'required',
@@ -71,12 +75,15 @@ class AddToClass extends Component
         }
     }
 
+
+
     public function selectGroupchange($groupName)
     {
         $this->nameselectedTochange = $groupName;
         $this->nameChange = $groupName;
         $this->groupsChange = [];
     }
+
 
     public function clearGroupchange()
     {
@@ -93,6 +100,24 @@ class AddToClass extends Component
         if (!$this->Groupadd) {
             $this->resetForm();
         }
+    }
+
+
+
+    public function resetForm1()
+    {
+        $this->reset([
+            'name1',
+            'nameselected',
+            'groups',
+            'Groupadd',
+            'nameChange1',
+            'nameselectedTochange1',
+            'groupsChange1',
+            'dayoflearning',
+            'time1',
+            'time2',
+        ]);
     }
 
     public function resetForm()
@@ -116,8 +141,6 @@ class AddToClass extends Component
 
     public function saveSelected()
     {
-
-
         if (empty($this->arrayId)) {
             flash()->warning('دڤێت فیرخاز بهێنە هەلبژارتن');
             return;
@@ -128,14 +151,26 @@ class AddToClass extends Component
             return;
         }
 
+        // Get group schedule
+        $group = Group::where('name', $this->nameselected)->first();
 
+        if (!$group) {
+            flash()->warning('گروپ نەدۆزرایەوە یاخود ڕێکەوت و کات نەدارد');
+            return;
+        }
+
+        // Update selected students
         Student::whereIn('id', $this->arrayId)
-            ->update(['class' => $this->nameselected]);
+            ->update([
+                'class'    => $this->nameselected,
+                'dateread' => $group->dayoflearning,
+                'time'     => $group->time1,
+            ]);
 
         $this->reset(['name', 'nameselected']);
         $this->arrayId = [];
 
-        flash()->success('Selected students have been added to the class!');
+        flash()->success('Selected students have been added to the class with date and time!');
     }
 
     public $studentIdToChange;
@@ -144,6 +179,8 @@ class AddToClass extends Component
     {
         $this->studentIdToChange = $id;
     }
+
+
     public function saveSelectedchange()
     {
         if (empty($this->nameselectedTochange)) {
@@ -194,7 +231,7 @@ class AddToClass extends Component
 
     public function render()
     {
-     
+
         $students = Student::query()
             ->where('status', 0)
             ->where('learn', 1)
@@ -208,7 +245,7 @@ class AddToClass extends Component
                 });
             })
             ->orderBy('name')
-            ->paginate(10, ['*'], 'studentsPage'); 
+            ->paginate(10, ['*'], 'studentsPage');
 
         $studentsCa = Student::query()
             ->whereNotNull('class')

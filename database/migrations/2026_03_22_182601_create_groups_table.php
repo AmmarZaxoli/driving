@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->integer('presentations')->default(0);
             $table->boolean('status')->default(0);
+            $table->boolean('reservation')->default(0);
             $table->date('dayoflearning')->nullable();
+            $table->time('time1')->nullable();
+            $table->time('time2')->nullable();
             $table->timestamps();
         });
     }
